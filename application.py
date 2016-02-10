@@ -11,8 +11,8 @@ def current_week():
 
     week_start = get_week_start(date.today(), calendar.SATURDAY)
     week_dates = [week_start + timedelta(days=n) for n in range(7)]
-    lunches = [d.strftime("%Y%m%d") + "l" for d in week_dates]
-    dinners = [d.strftime("%Y%m%d") + "d" for d in week_dates]
+    lunches = [d.strftime("%Y%m%dl") for d in week_dates]
+    dinners = [d.strftime("%Y%m%dd") for d in week_dates]
     # print(week_dates, file=sys.stderr)
     return render_template('index.html', dates=week_dates, lunches=lunches, dinners=dinners)
 
