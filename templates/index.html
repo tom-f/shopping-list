@@ -1,7 +1,36 @@
 <!doctype html>
-<html>
-<head><title>Shopping List</title></head>
+<html lang="en">
+<head>
+    <title>Shopping List</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="{{ url_for('static', filename="bootstrap/css/theme/default/bootstrap.css") }}" rel="stylesheet">
+</head>
 <body>
-    Hello World.
+    <div class="container">
+        <table class="table table-bordered" style="margin-top: 50px;">
+            <tr>
+                <td></td>
+                {% for date in dates %}
+                   <td>{{ date.strftime("%a %d %m") }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>Lunch</td>
+                {% for lunch in lunches %}
+                   <td><div><a href="javascript:void(0)">Add Meal</a><input type="hidden" name="{{ lunch }}" /></td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>Dinner</td>
+                {% for dinner in dinners %}
+                   <td><div><a href="javascript:void(0)">Add Meal</a><input type="hidden" name="{{ dinner }}" /></td>
+                {% endfor %}
+            </tr>
+        </table>
+    </div>
+    <script src="{{ url_for('static', filename="jquery/jquery.js") }}"></script>
+    <script src="{{ url_for('static', filename="bootstrap/js/bootstrap.min.js") }}"></script>
 </body>
 </html>
