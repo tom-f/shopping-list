@@ -5,32 +5,55 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="{{ url_for('static', filename="bootstrap/css/theme/flatly/bootstrap.css") }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename="bootstrap/old/css/theme/flatly/bootstrap.css") }}" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <table class="table table-bordered" style="margin-top: 50px;">
+        <div>
             <tr>
                 <td></td>
                 {% for date in dates %}
-                   <td>{{ date.strftime("%a %d %m") }}</td>
+                   <td>{{ date.strftime("%a %d %b") }}</td>
                 {% endfor %}
             </tr>
             <tr>
                 <td>Lunch</td>
                 {% for lunch in lunches %}
-                   <td><div><a href="javascript:void(0)">Add Meal</a><input type="hidden" name="{{ lunch }}" /></td>
+                   <td class="meal-block" data-meal-id="{{ lunch }}"><a class="meal-link" href="javascript:void(0)">Add Meal</a></td>
                 {% endfor %}
             </tr>
             <tr>
                 <td>Dinner</td>
                 {% for dinner in dinners %}
-                   <td><div><a href="javascript:void(0)">Add Meal</a><input type="hidden" name="{{ dinner }}" /></td>
+                   <td class="meal-block" data-meal-id="{{ dinner }}"><a class="meal-link" href="javascript:void(0)">Add Meal</a></td>
                 {% endfor %}
             </tr>
-        </table>
+        </div>
     </div>
     <script src="{{ url_for('static', filename="jquery/jquery.js") }}"></script>
-    <script src="{{ url_for('static', filename="bootstrap/js/bootstrap.min.js") }}"></script>
+    <script src="{{ url_for('static', filename="bootstrap/bootstrap/js/bootstrap.min.js") }}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.meal-link').click(function() {
+
+                var data = ["Stir Fry", "Curry", "Pasta"];
+                var s = $("<select id=\"selectId\" class=\"meal-pick\" name=\"selectName\" />");
+                for(var val in data) {
+                    $("<option />", {value: val, text: data[val]}).appendTo(s);
+                }
+
+                $(this).parent().html(s);
+
+                bindMealPicks();
+
+            });
+        });
+
+        function bindMealPicks() {
+            $('.meal-pick').change(function() { $(this).closest('.meal-block').html($(this).find(":selected").text())});
+        }
+    </script>
+
 </body>
 </html>
